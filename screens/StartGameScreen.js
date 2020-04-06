@@ -13,14 +13,16 @@ import Input from '../components/Inputs';
 import Colors from '../constants/Colors';
 import NumberContainer from '../components/NumberContainer'
 const StartGameScreen = (params) => {
-  const { } = params;
+  const { onStartGame } = params;
   const [number, setNumber] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
   const numberHandler = (value) => setNumber(value.replace(/[^0-9]/g), '');
   const resetHandler = () => {
+
     setNumber('');
     setConfirmed(false);
+    onStartGame(selectedNumber);
   };
 
   const confirmHandler = () => {
@@ -42,12 +44,17 @@ const StartGameScreen = (params) => {
 
   let confirmedOutput;
 
+  const StartGameHandler = () => {
+    console.log("iniciar juego");
+    onStartGame(selectedNumber);
+  }
+
   if (confirmed) {
     confirmedOutput = (
       <Card style={{ marginTop: 12.0 }}>
         <Text>Número eligido</Text>
         <NumberContainer texto={selectedNumber} />
-        <Button title="Iniciar juego" />
+        <Button title="Iniciar juego" onPress={StartGameHandler} />
       </Card>
     );
   }
